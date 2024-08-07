@@ -1,4 +1,4 @@
-from tecton import batch_feature_view
+from tecton import batch_feature_view, Attribute
 from tecton.types import Field, String, Timestamp
 from datetime import datetime, timedelta
 
@@ -12,11 +12,9 @@ from data_sources import users
     entities=[user],
     mode="pandas",
     batch_schedule=timedelta(days=1),
-    schema=[
-        Field("user_id", String),
-        Field("signup_time", Timestamp),
-        Field("preferred_name", String),
-        Field("birth_year", String),
+    features=[
+        Attribute(column="preferred_name", column_dtype=String),
+        Attribute(column="birth_year", column_dtype=String),
     ],
     timestamp_field="signup_time",
     online=True,

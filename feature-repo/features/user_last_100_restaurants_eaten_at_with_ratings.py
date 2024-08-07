@@ -1,4 +1,4 @@
-from tecton import batch_feature_view, Aggregation, on_demand_feature_view
+from tecton import batch_feature_view, Aggregate, on_demand_feature_view, Attribute
 from tecton.types import Field, String, Timestamp, Int64, Struct, Array
 from tecton.aggregation_functions import last
 from datetime import datetime, timedelta
@@ -13,12 +13,11 @@ from data_sources import ratings
     mode='pandas',
     batch_schedule=timedelta(days=1),
     aggregation_interval=timedelta(days=1),
-    schema=[Field('user_id', String), Field('restaurant_id', String), Field('timestamp', Timestamp), Field('rating', Int64)],
     timestamp_field='timestamp',
     environment='tecton-rift-core-0.9.0',
-    aggregations=[
-        Aggregation(name='last_100_restaurants_eaten_at', column='restaurant_id', function=last(100), time_window=timedelta(days=365*5)),
-        Aggregation(name='last_100_restaurant_ratings_for_last_100_restaurants_eaten_at', column='rating', function=last(100), time_window=timedelta(days=365*5)),
+    features=[
+        Aggregate(name='last_100_restaurants_eaten_at', column='restaurant_id', column_dtype=String, function=last(100), time_window=timedelta(days=365*5)),
+        Aggregate(name='last_100_restaurant_ratings_for_last_100_restaurants_eaten_at', column='rating', column_dtype=Int64, function=last(100), time_window=timedelta(days=365*5)),
     ],
     online=True,
     offline=True,
@@ -31,8 +30,7 @@ def user_last_restaurant_ratings(ratings):
 @on_demand_feature_view(
     sources=[user_last_restaurant_ratings],
     mode='python',
-    schema=[Field('user_last_100_restaurants_eaten_at_with_ratings', Array(Struct([Field('restaurant_id', String), Field('rating', Int64)])))],
-    tags={'llm_enabled': 'True'}
+    features=[Attribute( column='user_last_100_restaurants_eaten_at_with_ratings',column_dtype=Array(Struct([Field('restaurant_id', String), Field('rating', Int64)])))]
 )
 def user_last_100_restaurants_eaten_at_with_ratings(user_last_restaurant_ratings):
     restaurants = user_last_restaurant_ratings['last_100_restaurants_eaten_at']

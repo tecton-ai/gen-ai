@@ -1,4 +1,4 @@
-from tecton import batch_feature_view, Aggregation, on_demand_feature_view
+from tecton import batch_feature_view, Aggregate, Attribute, on_demand_feature_view
 from tecton.types import Field, String, Timestamp, Float64, Array, Struct, Int64
 from datetime import datetime, timedelta
 
@@ -12,13 +12,12 @@ from data_sources import ratings
     mode='pandas',
     batch_schedule=timedelta(days=1),
     aggregation_interval=timedelta(days=1),
-    schema=[Field('user_id', String), Field('restaurant_id', String), Field('timestamp', Timestamp), Field('rating', Int64)],
     timestamp_field='timestamp',
     environment='tecton-rift-core-0.9.0',
     aggregation_secondary_key='restaurant_id',
-    aggregations=[
-        Aggregation(name='users_average_rating_by_restaurant_last_5y', column='rating', function='mean', time_window=timedelta(days=365*5)),
-        Aggregation(name='users_total_visits_by_restaurant_last_5y', column='rating', function='count', time_window=timedelta(days=365*5))
+    features=[
+        Aggregate(name='users_average_rating_by_restaurant_last_5y', column='rating', column_dtype=Int64, function='mean', time_window=timedelta(days=365*5)),
+        Aggregate(name='users_total_visits_by_restaurant_last_5y', column='rating', column_dtype=Int64, function='count', time_window=timedelta(days=365*5))
     ],
     online=True,
     offline=True,
@@ -32,7 +31,7 @@ def user_engagement_by_restaurant_features(ratings):
     description='User ratings and total visits by restaurant',
     sources=[user_engagement_by_restaurant_features],
     mode='python',
-    schema=[Field('user_ratings_and_total_visits_by_restaurant', Array(Struct([Field('restaurant_id', String), Field('average_rating', Float64), Field('total_visits', Int64)])))],
+    features=[Attribute(column='user_ratings_and_total_visits_by_restaurant', column_dtype=Array(Struct([Field('restaurant_id', String), Field('average_rating', Float64), Field('total_visits', Int64)])))],
     tags={'llm_enabled': 'True'}
 )
 def user_ratings_and_total_visits_by_restaurant(user_ratings_and_total_visits_by_restaurant_raw):
