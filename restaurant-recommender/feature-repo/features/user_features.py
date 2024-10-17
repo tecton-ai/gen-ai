@@ -1,5 +1,5 @@
 from tecton import batch_feature_view, Attribute
-from tecton.types import Field, String, Timestamp
+from tecton.types import String
 from datetime import datetime, timedelta
 
 from entities import user
