@@ -1,0 +1,29 @@
+{
+  "checksums": [
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.4.22/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "A58779B2009926745CABBE075AB16824DEC53E1FF635A47A43115F6B95FDA607",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.4.22/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "4951DD9E5B5FDA712DB5F30BB76FAD4701A85CD8E6DAB61D7A78ACF040F4C211",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.4.22/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "90185EC1B8D67CD15E6342A9C82DD404381F42F37AB9721ABCFA028034441FC0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.4.22/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "4E89A6A01CAAB6EEC0490C8DC47079AAAC086AD1723E00BA2B6F2536D8FFD561",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.220.2/registry.yaml",
+      "checksum": "64A3578193FC5B41D1A3A1E20CF326AF7EC4F5F382AC27E29C595DB30E9B8017",
+      "algorithm": "sha256"
+    }
+  ]
+}
