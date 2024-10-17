@@ -1,0 +1,2 @@
+[default]
+extend-ignore-re = ['"id":\s*"([a-zA-Z0-9]+)"']

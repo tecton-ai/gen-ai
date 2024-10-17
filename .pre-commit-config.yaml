@@ -15,7 +15,12 @@ repos:
         language: system
         entry: uvx ruff@0.6.9 check --fix --
         types_or: [python, jupyter]
-
+      - id: typos
+        name: typos
+        language: system
+        entry: uvx typos
+        types: [text]
+        args: [--write-changes, --force-exclude]
       - id: ruff-format
         name: "ruff-format"
         language: system

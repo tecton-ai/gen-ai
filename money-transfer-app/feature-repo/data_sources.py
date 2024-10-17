@@ -9,8 +9,8 @@ user_info_src = BatchSource(
     ),
 )
 
-tranfer_stats_src = BatchSource(
-    name="tranfer_stats_src",
+transfer_stats_src = BatchSource(
+    name="transfer_stats_src",
     batch_config=FileConfig(
         uri="s3://tecton.ai.public/tutorials/transfer-app/transfer_data.json",
         file_format="json",
